@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <!-- https://django-crispy-forms.readthedocs.io/en/latest/filters.html -->
+{% load crispy_forms_tags %}
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <h3>Makale Oluştur</h3>
+        <hr>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <!-- CKeditor'u sayfamıza dahil etmek için  -->
+            {{form.media}}
+            <!-- Load crsipy komutundan sonra form crispy tanımlamasını gerçekleştriyoruz. -->
+            {{form|crispy}}
+            <hr>
+            <br>
+            <button type="submit" class="btn btn-primary">Makale Ekle</button>
+        </form>
+        <hr>
+    </div>
+  </div>
+{% endblock body %}

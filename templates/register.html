@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block body %}
+<!-- https://django-crispy-forms.readthedocs.io/en/latest/filters.html -->
+{% load crispy_forms_tags %}
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <h3>Kayıt Ol</h3>
+        <hr>
+        <form method="post">
+            {% csrf_token %}
+            <!-- Load crsipy komutundan sonra form crispy tanımlamasını gerçekleştriyoruz. -->
+            {{form|crispy}}
+            <hr>
+            <br>
+            <button type="submit" class="btn btn-primary">Kayıt Ol</button>
+        </form>
+        <hr>
+    </div>
+  </div>
+
+{% endblock body %}

@@ -1,0 +1,67 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">Django Blog</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="navbar-nav mr-auto">
+        <li class="nav-item">
+           <!-- normal yönlendirme işlemi küçük projelerde işe yarar fakat büyük projelerde tek tek url adreslerini tanıtmak zaman alır ve
+          hata şansı yaratır. -->
+          <!-- <a class="nav-link" href="/">Anasayfa</a>  -->
+
+           <a class="nav-link" href="{% url 'index' %}">Anasayfa</a> 
+           <!-- Bu şekilde urllere verdiğimiz name tagler üzerinde ulaşılabilir. -->
+        </li>
+        <li class="nav-item">
+          <!-- normal yönlendirme işlemi küçük projelerde işe yarar fakat büyük projelerde tek tek url adreslerini tanıtmak zaman alır ve
+          hata şansı yaratır. -->
+          <!-- <a class="nav-link" href="/about">Hakkımda</a> -->
+
+          <a class="nav-link" href="{% url 'about' %}">Hakkımda</a>
+          <!-- Bu şekilde urllere verdiğimiz name tagler üzerinde ulaşılabilir. -->
+        </li>
+        <li class="nav-item">
+          <!-- normal yönlendirme işlemi küçük projelerde işe yarar fakat büyük projelerde tek tek url adreslerini tanıtmak zaman alır ve
+          hata şansı yaratır. -->
+          <!-- <a class="nav-link" href="/articles">Makaleler</a> -->
+
+           <a class="nav-link" href="{% url 'article:articles' %}">Makaleler</a> 
+           <!-- article:articles article bölümünün altındaki articles bölümüne git demek -->
+          <!-- Bu şekilde urllere verdiğimiz name tagler üzerinde ulaşılabilir. -->
+        </li>
+      </div>
+
+    <div class="dropdown">
+      <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+        <ion-icon name="people-outline"></ion-icon>
+      </button>
+      <div class="dropdown-menu dropdown-menu-right">
+        {% if request.user.is_authenticated %}
+        <h6 class="dropdown-header">{{request.user.username}}</h6>
+
+        <!-- normal yönlendirme işlemi küçük projelerde işe yarar fakat büyük projelerde tek tek url adreslerini tanıtmak zaman alır ve
+          hata şansı yaratır. -->
+          <!-- <a class="dropdown-item" href="/user/profile">Profil</a> -->
+          <!-- <a class="dropdown-item" href="article/dashboard">Kontrol Paneli</a> -->
+
+          <a class="dropdown-item" href="{% url 'user:profile' %}">Profil</a>
+          <a class="dropdown-item" href="{% url 'article:dashboard' %}">Kontrol Paneli</a>
+
+          <div class="dropdown-divider"></div>
+          <!-- <a class="dropdown-item" href="/user/logout">Çıkış Yap</a> -->
+          <a class="dropdown-item" href="{% url 'user:logout' %}">Çıkış Yap</a>
+        {% else %}
+          <!-- <a class="dropdown-item" href="/user/login">Giriş Yap</a> -->
+          <a class="dropdown-item" href="{% url 'user:login' %}">Giriş Yap</a>
+          <div class="dropdown-divider"></div>
+          <!-- <a class="dropdown-item" href="/user/register">Kayıt Ol</a> -->
+          <a class="dropdown-item" href="{% url 'user:register' %}">Kayıt Ol</a>
+        {% endif %}
+      </div>
+    </div>
+  </div> 
+
+
+  
+  </nav>

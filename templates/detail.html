@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="row">
+ 
+  <!-- Post Content Column -->
+  <div class="col-lg-8">
+
+    <!-- Title -->
+    <h2 class="mt-4">{{article.title}}</h2>
+    <!-- Author -->
+    <p class="lead">
+      {{article.author.username}} tarafından yazıldı
+    </p>
+    <hr>
+      <!-- Date/Time -->
+      <p>{{article.created_date}}</p>
+      <hr>
+      <!-- Preview Image -->
+      {% if article.article_image %}
+      <img class="img-fluid rounded" src="{{article.article_image.url}}" alt="">
+      {% endif %}
+      <hr>
+    <!-- Post Content --> 
+    <div style="word-wrap: break-word;">
+      <p class="lead">
+        {{article.content|safe}}
+      </p>
+    </div> 
+      <hr>
+      <h4>Yorumlar</h4>
+      <hr>
+      
+      <!-- Comments Form -->
+      {% if comments %}
+        {% for comment in comments %}
+          <!-- Single Comment -->
+          <div class="media mb-4">
+            <img class="d-flex mr-3 rounded-circle" src="https://via.placeholder.com/150" width="50px" height="50px">
+            <div class="media-body"> 
+              <h5 class="mt-0">{{comment.comment_author}}<br><p style="color: #aaaaaa; font-size: 12px;">{{comment.comment_date}}</p></h5>
+              {{comment.comment_content}}
+              <hr>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+    <div class="alert alert-danger">
+      Bu makalede henüz bir yorum yok, ilk yorumu siz yazın...
+    </div>
+      {% endif %}
+    <div class="card my-4">
+      <h5 class="card-header">Yorum Ekle:</h5>
+      <div class="card-body">
+        <form method = "post" action="{% url 'article:comment' article.id %}">
+          {% csrf_token %} <!-- csrf token her formun içinde yazılması gerekmektedir. -->
+          <div class="form-group">
+            {% if request.user.is_authenticated %}
+              <fieldset disabled>
+              <div class="form-group">
+                <label for="disabledTextInput">İsim</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="{{request.user.username}}">
+              </div>
+            {% else %}
+              <label for="formGroupExampleInput">İsim</label>
+              <input name="comment_author"  type="text" class="form-control" id="formGroupExampleInput" placeholder="İsminizi Girin...">
+            {% endif %}
+          </div>
+          <div class="form-group">
+            <label for="formGroupExampleInput">Yorum</label>
+            <textarea name="comment_content" class="form-control" rows="3"placeholder="Yorumunuz..."></textarea>
+          </div>
+            <button type="submit" class="btn btn-primary">Ekle</button>
+        </form>
+      
+      </div>
+    </div>
+  </div>
+</div>
+  <!-- /.row -->  
+{% endblock body %}

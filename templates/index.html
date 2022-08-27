@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <div class="junbotron text-center">
+    <h3>Django İle Blog Sayfası Örneğine Hoş Geldiniz</h3>
+    <p>Bu blogda yeni bilgiler öğreniyorum ve bunları deniyorum.</p>
+  </div>
+<p>
+  {% if request.user.is_authenticated %}
+    Giriş Yapılmış,{{request.user.username}}
+  {% else %}
+    Giriş Yapılmamış
+  {% endif %}
+  
+</p>
+{% endblock body %}

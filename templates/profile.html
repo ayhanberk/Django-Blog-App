@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block body %}
+{% load static %}
+<!-- https://django-crispy-forms.readthedocs.io/en/latest/filters.html -->
+{% load crispy_forms_tags %}
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <br>
+        <img class="img-thumbnail" src="https://via.placeholder.com/200x200" alt="Profile" height="180" width="180"/>
+        <h3>Profil</h3>
+        <hr>
+        <form method="post">
+            {% csrf_token %}
+            <!-- Load crsipy komutundan sonra form crispy tanımlamasını gerçekleştriyoruz. -->
+            {{form|crispy}}
+            <hr>
+            <p>
+                 Profilini düzenle
+               </p>
+                 
+            <br>
+        </form>
+        <hr>
+    </div>
+  </div>
+
+{% endblock body %}
